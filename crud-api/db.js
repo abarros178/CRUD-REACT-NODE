@@ -19,6 +19,9 @@ const ValorParametro = ValorParametroModel(sequelize, Sequelize);
 Parametro.hasMany(ValorParametro,{foreingKey: 'parametro_id'})
 ValorParametro.belongsTo(Parametro,{foreingKey: 'parametro_id'})
 
+ValorParametro.hasMany(Profesor,{foreignKey: 'tipo_profesor'})
+Profesor.belongsTo(ValorParametro,{foreignKey: 'tipo_profesor'})
+
 
 
 sequelize.sync({ alter: true }).then(() => {
