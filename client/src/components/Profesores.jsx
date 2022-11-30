@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { TIPO_PROFESOR } from "../../helper";
+import { TIPO_PROFESOR,TIPO_SEXO,HOMBRE_SEXO,MUJER_SEXO } from "../../helper";
 import axios from "axios";
-import { message } from 'antd';
+import { message } from "antd";
 import CardProfesores from "./CardProfesores.jsx";
 import {
   Alert,
@@ -26,21 +26,32 @@ export const Profesores = () => {
     identificacion: "",
     nombre: "",
     tipo_profesor: "",
+    username: "",
+    avatarlink: "",
+    gemale: "",
   });
   const [profesores, setprofesores] = useState([]);
   const [modalcrear, setmodalcrear] = useState(false);
   const [cargando, setcargando] = useState(false);
   const [tipo_profesores_back, settipo_profesores_back] = useState([]);
+  const [tipo_sexo_back, settipo_sexo_back] = useState([])
+
+  useEffect(() => {
+    if (profesores.length === 0) setmodalcrear(true);
+  }, []);
   useEffect(() => {
     getprofesores();
-    getparametro();
-    console.log('entre');
-    if (profesores.length === 0) setmodalcrear(true);
+    getparametrotipo_profesor();
+    getparametroTipo_sexo()
+    // if (profesores.length === 0) setmodalcrear(true);
     setform({
       identificacion: "",
       nombre: "",
-      tipo_profesor: ""
-    })
+      tipo_profesor: "",
+      username: "",
+      avatarlink: "",
+      gemale: "",
+    });
   }, [modalcrear]);
 
   const onInputChange = (e) => {
@@ -50,7 +61,7 @@ export const Profesores = () => {
   const getprofesores = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/profesores", {
+      .get("http://localhost:3001/api/profesores", {
         responseType: "json",
       })
       .then(function (res) {
@@ -64,13 +75,38 @@ export const Profesores = () => {
         setcargando(false);
       });
   };
-
-  const content = profesores.map(profe => <Grid item xs={3} > <CardProfesores key={profe.id} profesor={profe} /></Grid>)
-
-  const getparametro = async () => {
+  const getAPI = async (gender) => {
     setcargando(true);
     await axios
-      .get(`http://localhost:3000/api/valorparametro/${TIPO_PROFESOR}`, {
+      .get(`https://randomuser.me/api?&gender=${gender}`, {
+        responseType: "json",
+      })
+      .then(function (res) {
+        if (res.status == 200) {
+          form.username=res.data.results[0].login.username
+          form.avatarlink=res.data.results[0].picture.large
+        //  setform(...form,{username:res.data.results[0].login.username}) 
+        //  setform(...form,{avatarlink:res.data.results[0].picture.large}) 
+        setcargando(false);
+        }
+      })
+      .catch(function (err) {
+        console.log(err);
+        setcargando(false);
+      });
+  };
+
+  const content = profesores.map((profe) => (
+    <Grid item xs={3}>
+      {" "}
+      <CardProfesores key={profe.id} profesor={profe} />
+    </Grid>
+  ));
+
+  const getparametrotipo_profesor = async () => {
+    setcargando(true);
+    await axios
+      .get(`http://localhost:3001/api/valorparametro/${TIPO_PROFESOR}`, {
         responseType: "json",
       })
       .then(function (res) {
@@ -84,21 +120,49 @@ export const Profesores = () => {
         setcargando(false);
       });
   };
-  const onsubmit = (e) => {
-    axios.post('http://localhost:3000/api/profesores', form)
-      .then(res => {
+  const getparametroTipo_sexo = async () => {
+    setcargando(true);
+    await axios
+      .get(`http://localhost:3001/api/valorparametro/${TIPO_SEXO}`, {
+        responseType: "json",
+      })
+      .then(function (res) {
         if (res.status == 200) {
-          setmodalcrear(false)
-          message.success('Profesor guardado con exito')
+          settipo_sexo_back(res.data.rows);
+          setcargando(false);
         }
-      }).catch(err => {
-        console.log(err)
+      })
+      .catch(function (err) {
+        console.log(err);
+        setcargando(false);
       });
-    e.preventDefault()
-  }
+  };
+  const onsubmit = async (e) => {
+     let helpgemale = "";
+    if(form.gemale==HOMBRE_SEXO){
+      helpgemale = "male"
+    }else{
+      helpgemale = "female"
+    }
+
+    await getAPI(helpgemale);
+    console.log(form)
+    await axios
+      .post("http://localhost:3001/api/profesores", form)
+      .then((res) => {
+        if (res.status == 200) {
+          setmodalcrear(false);
+          message.success("Profesor guardado con exito");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    e.preventDefault();
+  };
   return (
     <>
-
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant="h1" component="div">
@@ -117,7 +181,6 @@ export const Profesores = () => {
         </Grid>
       </Grid>
 
-
       <Dialog
         open={modalcrear}
         maxWidth="sm"
@@ -129,7 +192,6 @@ export const Profesores = () => {
         {/* <AppBarModal titulo='¡ Crear profesores !' mostrarModal={modalcrear} titulo_accion='' /> */}
         <ValidatorForm onSubmit={onsubmit}>
           <DialogContent>
-
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextValidator
@@ -186,8 +248,30 @@ export const Profesores = () => {
                   </SelectValidator>
                 </FormControl>
               </Grid>
+              <Grid item xs={12}>
+              <FormControl sx={{ width: 550 }}>
+                  <SelectValidator
+                    value={form.gemale}
+                    required
+                    // error={getError("celular", errores).length > 0}
+                    // helperText={getError("celular", errores)}
+                    id="gemale"
+                    name="gemale"
+                    label="Tipo de genero"
+                    fullWidth
+                    validators={["required"]}
+                    errorMessages={["El campo es requerido"]}
+                    onChange={onInputChange}
+                  >
+                    {tipo_sexo_back.map(({ id, nombre }) => (
+                      <MenuItem key={id} value={id}>
+                        {nombre}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+                  </FormControl>
+              </Grid>
             </Grid>
-
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setmodalcrear(false)} variant="text">

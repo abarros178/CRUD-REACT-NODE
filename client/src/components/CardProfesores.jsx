@@ -1,27 +1,54 @@
-import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material'
+import { Button, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
+import { EditOutlined, EllipsisOutlined, SettingOutlined,DeleteOutlined } from '@ant-design/icons';
+import { Avatar, Card } from 'antd';
 import React from 'react'
+import Meta from 'antd/es/card/Meta';
 
- const CardProfesores = ({profesor,id}) => {
+ const CardProfesores = ({profesor}) => {
   return (
     <div>
-        <Card sx={{ height:"200px", width:"250px" }}>
+        {/* <Card sx={{ height:"250px", width:"250px" }}>
         <CardActionArea>
           <CardMedia
             component="img"
             height="150"
-            src="https://api.lorem.space/image/face?w=150&h=150"
-            // alt={profesor.original_title}
+            src={profesor.avatarlink}
+            alt={profesor.original_title}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {profesor.nombre}
             </Typography>
-                {/* <Typography variant="body2" color="text.secondary">
+                 <Typography variant="body2" color="text.secondary">
                 {profesor.}
-                </Typography> */}
+                </Typography> 
+              
           </CardContent>
+        
         </CardActionArea>
-      </Card>
+        <CardActions>
+          <Button variant='text'>Mas informacion</Button>
+            </CardActions>
+      
+      </Card> */}
+      <Card
+    style={{ width: 300 }}
+    cover={
+      <img
+        alt="example"
+        src={profesor.avatarlink}
+      />
+    }
+    actions={[
+      <EditOutlined key="edit" />,
+      <DeleteOutlined key="delete" />
+    ]}
+  >
+    <Meta
+      title={profesor.nombre}
+      description="This is the description"
+    />
+  </Card>
     </div>
   )
 }
