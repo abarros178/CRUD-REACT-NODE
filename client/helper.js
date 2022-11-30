@@ -1,0 +1,1 @@
+export const TIPO_PROFESOR =1
