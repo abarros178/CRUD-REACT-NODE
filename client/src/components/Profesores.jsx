@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { TIPO_PROFESOR } from "../../helper";
 import axios from "axios";
+import { message } from 'antd';
+import CardProfesores from "./CardProfesores.jsx";
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
@@ -10,6 +13,7 @@ import {
   Grid,
   MenuItem,
   TextField,
+  Typography,
 } from "@mui/material";
 import {
   ValidatorForm,
@@ -21,7 +25,7 @@ export const Profesores = () => {
   const [form, setform] = useState({
     identificacion: "",
     nombre: "",
-    tipo_profesor: 0,
+    tipo_profesor: "",
   });
   const [profesores, setprofesores] = useState([]);
   const [modalcrear, setmodalcrear] = useState(false);
@@ -30,8 +34,14 @@ export const Profesores = () => {
   useEffect(() => {
     getprofesores();
     getparametro();
+    console.log('entre');
     if (profesores.length === 0) setmodalcrear(true);
-  }, []);
+    setform({
+      identificacion: "",
+      nombre: "",
+      tipo_profesor: ""
+    })
+  }, [modalcrear]);
 
   const onInputChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });
@@ -54,6 +64,9 @@ export const Profesores = () => {
         setcargando(false);
       });
   };
+
+  const content = profesores.map(profe => <Grid item xs={3} > <CardProfesores key={profe.id} profesor={profe} /></Grid>)
+
   const getparametro = async () => {
     setcargando(true);
     await axios
@@ -71,8 +84,40 @@ export const Profesores = () => {
         setcargando(false);
       });
   };
+  const onsubmit = (e) => {
+    axios.post('http://localhost:3000/api/profesores', form)
+      .then(res => {
+        if (res.status == 200) {
+          setmodalcrear(false)
+          message.success('Profesor guardado con exito')
+        }
+      }).catch(err => {
+        console.log(err)
+      });
+    e.preventDefault()
+  }
   return (
     <>
+
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Typography variant="h1" component="div">
+            LISTA DE PROFESORES
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Button onClick={() => setmodalcrear(true)} variant="contained">
+            Agregar profesores
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Grid container justifyContent="center" spacing={2}>
+            {content}
+          </Grid>
+        </Grid>
+      </Grid>
+
+
       <Dialog
         open={modalcrear}
         maxWidth="sm"
@@ -82,8 +127,9 @@ export const Profesores = () => {
         aria-describedby="alert-dialog-description"
       >
         {/* <AppBarModal titulo='¡ Crear profesores !' mostrarModal={modalcrear} titulo_accion='' /> */}
-        <DialogContent>
-          <ValidatorForm>
+        <ValidatorForm onSubmit={onsubmit}>
+          <DialogContent>
+
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextValidator
@@ -141,17 +187,17 @@ export const Profesores = () => {
                 </FormControl>
               </Grid>
             </Grid>
-          </ValidatorForm>
 
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setmodalcrear(false)} variant="text">
-            Cerrar
-          </Button>
-          <Button type="submit" variant="text">
-            Guardar
-          </Button>
-        </DialogActions>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setmodalcrear(false)} variant="text">
+              Cerrar
+            </Button>
+            <Button type="submit" variant="text">
+              Guardar
+            </Button>
+          </DialogActions>
+        </ValidatorForm>
       </Dialog>
     </>
   );
