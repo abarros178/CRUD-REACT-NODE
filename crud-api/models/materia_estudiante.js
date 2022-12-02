@@ -1,18 +1,18 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, type) => {
-  return sequelize.define("materia", {
+  return sequelize.define("materia_estudiante", {
     id: {
       type: type.BIGINT,
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre: {
-      type: type.STRING,
+    id_materia: {
+      type: type.BIGINT,
       allowNull: false,
     },
-    ubicacion: {
-      type: type.STRING,
+    id_estudiante: {
+      type: type.BIGINT,
       allowNull: false,
     },
     estado: {
