@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Dialog, DialogActions, DialogContent, FormControl, Grid,Button,MenuItem, DialogTitle, Typography } from '@mui/material'
 import { SelectValidator, TextValidator, ValidatorForm } from 'react-material-ui-form-validator'
 
-const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profesores_back,tipo_sexo_back,onsubmit}) => {
+const ModalEstudiante = ({modalcrear,setmodalcrear,onInputChange,form,tipoidentificacion_back,tipo_sexo_back,onsubmit}) => {
   return (
     <div>
         <Dialog
@@ -17,7 +17,7 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
         {
           !form.username &&
           <DialogTitle disableTypography>
-          <Typography variant="h3">Crea un nuevo profesor</Typography>
+          <Typography variant="h3">Crea un nuevo estudiante</Typography>
         </DialogTitle>
         }
         {
@@ -26,10 +26,33 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
           <Typography variant="h4">{`Edita a ${form.nombre}`}</Typography>
         </DialogTitle>
         }
-        {/* <AppBarModal titulo='¡ Crear profesores !' mostrarModal={modalcrear} titulo_accion='' /> */}
+        {/* <AppBarModal titulo='¡ Crear estudiantees !' mostrarModal={modalcrear} titulo_accion='' /> */}
         <ValidatorForm onSubmit={onsubmit}>
           <DialogContent>
             <Grid container spacing={2}>
+            <Grid item xs={12}>
+                <FormControl sx={{ width: 550 }}>
+                  <SelectValidator
+                    value={form.tipo_identificacion}
+                    required
+                    // error={getError("celular", errores).length > 0}
+                    // helperText={getError("celular", errores)}
+                    id="tipo_identificacion"
+                    name="tipo_identificacion"
+                    label="Tipo de identificacion"
+                    fullWidth
+                    validators={["required"]}
+                    errorMessages={["El campo es requerido"]}
+                    onChange={onInputChange}
+                  >
+                    {tipoidentificacion_back.map(({ id, nombre }) => (
+                      <MenuItem key={id} value={id}>
+                        {nombre}
+                      </MenuItem>
+                    ))}
+                  </SelectValidator>
+                </FormControl>
+              </Grid>
               <Grid item xs={12}>
                 <TextValidator
                   value={form.identificacion}
@@ -39,7 +62,7 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
                   type="number"
                   id="identificacion"
                   name="identificacion"
-                  label="Identificacion del profesor"
+                  label="Identificacion del estudiante"
                   fullWidth
                   validators={["required"]}
                   errorMessages={["El campo es requerido"]}
@@ -55,7 +78,7 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
                   type="text"
                   id="nombre"
                   name="nombre"
-                  label="Nombre del profesor"
+                  label="Nombre del estudiante"
                   fullWidth
                   validators={["required"]}
                   errorMessages={["El campo es requerido"]}
@@ -64,7 +87,7 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
               </Grid>
               {
                 form.username &&
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                 <TextValidator
                   value={form.username}
                   required
@@ -80,29 +103,7 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
                   onChange={onInputChange}
                 ></TextValidator>
               </Grid>}
-              <Grid item xs={12}>
-                <FormControl sx={{ width: 550 }}>
-                  <SelectValidator
-                    value={form.tipo_profesor}
-                    required
-                    // error={getError("celular", errores).length > 0}
-                    // helperText={getError("celular", errores)}
-                    id="tipo_profesor"
-                    name="tipo_profesor"
-                    label="Tipo de profesor"
-                    fullWidth
-                    validators={["required"]}
-                    errorMessages={["El campo es requerido"]}
-                    onChange={onInputChange}
-                  >
-                    {tipo_profesores_back.map(({ id, nombre }) => (
-                      <MenuItem key={id} value={id}>
-                        {nombre}
-                      </MenuItem>
-                    ))}
-                  </SelectValidator>
-                </FormControl>
-              </Grid>
+       
               <Grid item xs={12}>
               <FormControl sx={{ width: 550 }}>
                   <SelectValidator
@@ -143,4 +144,4 @@ const Modalprofesor = ({modalcrear,setmodalcrear,onInputChange,form,tipo_profeso
 }
 
 
-export default Modalprofesor
+export default ModalEstudiante

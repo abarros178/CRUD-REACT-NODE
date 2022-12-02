@@ -11,6 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api',apiRoute)
 
-app.listen(3001, () => {
+app.listen(3000, () => {
   console.log("servidor levantado");
 });

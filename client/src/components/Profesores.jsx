@@ -17,11 +17,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import {
-  ValidatorForm,
-  TextValidator,
-  SelectValidator,
-} from "react-material-ui-form-validator";
 import Modalprofesor from "./Modalprofesor";
 // import Modaleditprofesor from "./Modaleditprofesor";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -45,7 +40,7 @@ export const Profesores = () => {
   const [modaledit, setmodaledit] = useState(false)
 
   useEffect(() => {
-    if (profesores.length === 0) setmodalcrear(true);
+    setmodalcrear(true);
   }, []);
   useEffect(() => {
     getprofesores();
@@ -53,7 +48,7 @@ export const Profesores = () => {
     getparametroTipo_sexo()
     // if (profesores.length === 0) setmodalcrear(true);
 
-  }, [modalcrear]);
+  }, [modalcrear,modalconfirmar]);
 
   const onInputChange = (e) => {
     setform({ ...form, [e.target.name]: e.target.value });

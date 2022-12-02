@@ -3,7 +3,16 @@ const { Profesor, ValorParametro } = require("../../db");
 
 router.get("/", async (req, res) => {
   const profesor = await Profesor.findAndCountAll({
-    include: [{ model: ValorParametro }],
+    include: [
+      {
+        model: ValorParametro,
+        as: "tipo_profesor_pk",
+      },
+      {
+        model: ValorParametro,
+        as: "gemale_pk_pro",
+      },
+    ],
     where: { estado: "1" },
   });
   res.json(profesor);
@@ -37,15 +46,12 @@ router.put("/:id", async (req, res) => {
 });
 
 router.put("/delete/:id", async (req, res) => {
-  try{
-  let id = req.params.id;
-  console.log(id)
-  await Profesor.update(
-    { estado: "0" },
-    { where: { id: id } }
-  );
-  res.send('Profesor eliminado')}
-  catch(err){
+  try {
+    let id = req.params.id;
+    console.log(id);
+    await Profesor.update({ estado: "0" }, { where: { id: id } });
+    res.send("Profesor eliminado");
+  } catch (err) {
     res.status(400).send("No se pudo eliminar", err);
   }
 });
