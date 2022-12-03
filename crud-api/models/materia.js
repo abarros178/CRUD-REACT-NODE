@@ -15,6 +15,10 @@ module.exports = (sequelize, type) => {
       type: type.STRING,
       allowNull: false,
     },
+    profesor_id: {
+      type: type.BIGINT,
+      allowNull: false,
+    },
     estado: {
       type: type.STRING,
       allowNull: false,

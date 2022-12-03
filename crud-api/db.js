@@ -20,12 +20,12 @@ const Estudiante = EstudianteModel(sequelize, Sequelize);
 const Materia_Estudiante = Materia_EstudianteModel(sequelize, Sequelize);
 
 
-Parametro.hasMany(ValorParametro,{foreingKey: 'parametro_id'})
-ValorParametro.belongsTo(Parametro,{foreingKey: 'parametro_id'})
+Parametro.hasMany(ValorParametro)
+ValorParametro.belongsTo(Parametro)
 
 
-Profesor.hasMany(Materia,{foreingKey: 'profesor_id'})
-Materia.belongsTo(Profesor,{foreingKey: 'profesor_id'})
+Profesor.hasMany(Materia,{foreignKey: 'profesor_id', as:'profesor_id_pk'})
+Materia.belongsTo(Profesor,{foreignKey: 'profesor_id',as : 'profesor_id_pk'})
 
 ValorParametro.hasMany(Profesor,{foreignKey: 'tipo_profesor',as:'tipo_profesor_pk'})
 Profesor.belongsTo(ValorParametro,{foreignKey: 'tipo_profesor',as:'tipo_profesor_pk'})

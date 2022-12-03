@@ -6,6 +6,7 @@ router.get("/", async (req, res) => {
     include: 
       {
         model: Profesor,
+        as:'profesor_id_pk'
         
       },
     
@@ -21,21 +22,19 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     let id = req.params.id;
-    let { nombre, identificacion, tipo_profesor, username, gemale } = req.body;
+    let { nombre, ubicacion, profesor_id} = req.body;
 
-    const profesor = await Profesor.update(
+    const materia = await Materia.update(
       {
         nombre: nombre,
-        identificacion: identificacion,
-        tipo_profesor: tipo_profesor,
-        username: username,
-        gemale: gemale,
+        ubicacion: ubicacion,
+        profesor_id: profesor_id,
       },
       {
         where: { id: id },
       }
     );
-    res.json(profesor);
+    res.json(materia);
   } catch (err) {
     res.status(400).send("No se pudo actualizar", err);
   }
@@ -46,7 +45,7 @@ router.put("/delete/:id", async (req, res) => {
     let id = req.params.id;
     console.log(id);
     await Materia.update({ estado: "0" }, { where: { id: id } });
-    res.send("Profesor eliminado");
+    res.send("Materia eliminado");
   } catch (err) {
     res.status(400).send("No se pudo eliminar", err);
   }
