@@ -13,7 +13,7 @@ import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 export const Inicio = () => {
   return (
     <>
-      {/* <NavBar/> */}
+
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -21,6 +21,7 @@ export const Inicio = () => {
             SISTEMA DE GESTION
           </Typography>
         </Grid>
+        <Grid container spacing={2} justifyContent="center">
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
             <CardActionArea href='/profesores' >
@@ -87,6 +88,7 @@ export const Inicio = () => {
             <CardActions>
             </CardActions>
           </Card>
+        </Grid>
         </Grid>
       </Grid>
     </>

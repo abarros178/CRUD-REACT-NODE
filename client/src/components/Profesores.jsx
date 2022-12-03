@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { TIPO_PROFESOR, TIPO_SEXO, HOMBRE_SEXO, MUJER_SEXO } from "../../helper";
 import axios from "axios";
 import { Card, message } from "antd";
-import CardProfesores from "./CardProfesores.jsx";
 import {
   Alert,
   Button,
@@ -92,16 +91,7 @@ export const Profesores = () => {
       });
   };
 
-  const content = profesores.map((profe) => (
-    <>
-      <Grid item xs={3}>
-        {" "}
-        <CardProfesores modaledit={modaledit} setmodaledit={setmodaledit} onInputChange={onInputChange} tipo_profesores_back={tipo_profesores_back} tipo_sexo_back={tipo_sexo_back} key={profe.id} profesor={profe} />
 
-      </Grid>
-
-    </>
-  ));
   const editprofeabrir = (profesor) => {
     setform(profesor)
     setmodalcrear(true)
