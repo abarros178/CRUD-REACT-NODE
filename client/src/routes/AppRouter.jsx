@@ -8,6 +8,7 @@ import { Estudiantes } from '../components/Estudiantes.jsx'
 
 
 
+
 export const AppRouter = () => {
     return (
         <div>
@@ -17,6 +18,7 @@ export const AppRouter = () => {
                     <Route path='/materias' element={<Materias />}></Route>
                     <Route path='/profesores' element={<Profesores />}></Route>
                     <Route path='/estudiantes' element={<Estudiantes />}></Route>
+
 
 
                 </Routes>

@@ -13,7 +13,7 @@ import { Button, CardActionArea, CardActions, Grid } from '@mui/material';
 export const Inicio = () => {
   return (
     <>
-      {/* <NavBar/> */}
+
 
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -21,28 +21,7 @@ export const Inicio = () => {
             SISTEMA DE GESTION
           </Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Card sx={{ maxWidth: 380 }}>
-            <CardActionArea href='/materias' >
-              <CardMedia
-                component="img"
-                height="140"
-                image={img2}
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Materias
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Aqui puedes ver todas las materias,tambien puedes agregar mas materias.
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions>
-            </CardActions>
-          </Card>
-        </Grid>
+        <Grid container spacing={2} justifyContent="center">
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
             <CardActionArea href='/profesores' >
@@ -67,6 +46,29 @@ export const Inicio = () => {
         </Grid>
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
+            <CardActionArea href='/materias' >
+              <CardMedia
+                component="img"
+                height="140"
+                image={img2}
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Materias
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Aqui puedes ver todas las materias,tambien puedes agregar mas materias.
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+            <CardActions>
+            </CardActions>
+          </Card>
+        </Grid>
+      
+        <Grid item xs={4}>
+          <Card sx={{ maxWidth: 380 }}>
             <CardActionArea href='/estudiantes' >
               <CardMedia
                 component="img"
@@ -86,6 +88,7 @@ export const Inicio = () => {
             <CardActions>
             </CardActions>
           </Card>
+        </Grid>
         </Grid>
       </Grid>
     </>

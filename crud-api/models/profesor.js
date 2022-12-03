@@ -12,11 +12,23 @@ module.exports = (sequelize, type) => {
       allowNull: false,
     },
     identificacion: {
-      type: type.INTEGER,
+      type: type.BIGINT,
       allowNull: false,
     },
     tipo_profesor: {
       type: type.BIGINT,
+      allowNull: false,
+    },
+    username: {
+      type: type.STRING,
+      allowNull: false,
+    },
+    gemale: {
+      type: type.BIGINT,
+      allowNull: false,
+    },
+    avatarlink: {
+      type: type.STRING,
       allowNull: false,
     },
     estado: {

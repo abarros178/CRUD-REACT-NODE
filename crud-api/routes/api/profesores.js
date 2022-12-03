@@ -1,13 +1,19 @@
 const router = require("express").Router();
-const { Profesor,ValorParametro} = require("../../db");
+const { Profesor, ValorParametro } = require("../../db");
 
 router.get("/", async (req, res) => {
   const profesor = await Profesor.findAndCountAll({
     include: [
-      {model : ValorParametro,
-    
-    },
-    ]
+      {
+        model: ValorParametro,
+        as: "tipo_profesor_pk",
+      },
+      {
+        model: ValorParametro,
+        as: "gemale_pk_pro",
+      },
+    ],
+    where: { estado: "1" },
   });
   res.json(profesor);
 });
@@ -17,25 +23,37 @@ router.post("/", async (req, res) => {
   res.json(profesor);
 });
 router.put("/:id", async (req, res) => {
-    try{
-  let id = req.params.id;
-  let { nombre } = req.body;
-  const valorParametro = await ValorParametro.update(
-    req.body,
-    {
-      where: { id: id },
-    }
-  );
-  res.json(valorParametro);
-}catch(err){
-    res.status(400).send('No se pudo actualizar',err)
-}
+  try {
+    let id = req.params.id;
+    let { nombre, identificacion, tipo_profesor, username, gemale } = req.body;
+
+    const profesor = await Profesor.update(
+      {
+        nombre: nombre,
+        identificacion: identificacion,
+        tipo_profesor: tipo_profesor,
+        username: username,
+        gemale: gemale,
+      },
+      {
+        where: { id: id },
+      }
+    );
+    res.json(profesor);
+  } catch (err) {
+    res.status(400).send("No se pudo actualizar", err);
+  }
 });
 
-router.delete("/",async (req, res) => {
-    const eliminarprofe= await Profesor.destroy({
-        where: { id: 1}
-    })
-})
+router.put("/delete/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    console.log(id);
+    await Profesor.update({ estado: "0" }, { where: { id: id } });
+    res.send("Profesor eliminado");
+  } catch (err) {
+    res.status(400).send("No se pudo eliminar", err);
+  }
+});
 
 module.exports = router;

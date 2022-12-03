@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, type) => {
-  return sequelize.define("valorparametro", {
+  return sequelize.define("estudiante", {
     id: {
       type: type.BIGINT,
       primaryKey: true,
@@ -11,11 +11,23 @@ module.exports = (sequelize, type) => {
       type: type.STRING,
       allowNull: false,
     },
-    descripcion: {
-      type: type.STRING,
-      allowNull: true,
+    identificacion: {
+      type: type.BIGINT,
+      allowNull: false,
     },
-    codigo: {
+    tipo_identificacion: {
+      type: type.BIGINT,
+      allowNull: false,
+    },
+    username: {
+      type: type.STRING,
+      allowNull: false,
+    },
+    gemale: {
+      type: type.BIGINT,
+      allowNull: false,
+    },
+    avatarlink: {
       type: type.STRING,
       allowNull: false,
     },

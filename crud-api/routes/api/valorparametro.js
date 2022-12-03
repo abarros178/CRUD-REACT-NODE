@@ -2,10 +2,21 @@ const router = require("express").Router();
 const { ValorParametro,Parametro } = require("../../db");
 
 router.get("/", async (req, res) => {
+  
   const valorParametro = await ValorParametro.findAndCountAll({
     include: [
       {model : Parametro}
     ]
+  });
+  res.json(valorParametro);
+});
+router.get("/:id", async (req, res) => {
+  let id = req.params.id;
+  const valorParametro = await ValorParametro.findAndCountAll({
+    include: [
+      {model : Parametro}
+    ],
+    where:{parametroId:id}
   });
   res.json(valorParametro);
 });

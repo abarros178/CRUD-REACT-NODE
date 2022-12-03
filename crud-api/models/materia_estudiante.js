@@ -1,22 +1,18 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize, type) => {
-  return sequelize.define("valorparametro", {
+  return sequelize.define("materia_estudiante", {
     id: {
       type: type.BIGINT,
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre: {
-      type: type.STRING,
+    id_materia: {
+      type: type.BIGINT,
       allowNull: false,
     },
-    descripcion: {
-      type: type.STRING,
-      allowNull: true,
-    },
-    codigo: {
-      type: type.STRING,
+    id_estudiante: {
+      type: type.BIGINT,
       allowNull: false,
     },
     estado: {
