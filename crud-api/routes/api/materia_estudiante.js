@@ -80,15 +80,15 @@ router.put("/:id", async (req, res) => {
   }   
 });
 
-// router.put("/delete/:id", async (req, res) => {
-//   try {
-//     let id = req.params.id;
-//     console.log(id);
-//     await Profesor.update({ estado: "0" }, { where: { id: id } });
-//     res.send("Profesor eliminado");
-//   } catch (err) {
-//     res.status(400).send("No se pudo eliminar", err);
-//   }
-// });
+router.put("/delete/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    console.log(id);
+    await Materia_Estudiante.update({ estado: "0" }, { where: { id: id } });
+    res.send("Relacion eliminada eliminado");
+  } catch (err) {
+    res.status(400).send("No se pudo eliminar", err);
+  }
+});
 
 module.exports = router;

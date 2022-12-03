@@ -26,6 +26,7 @@ export const Materias = () => {
   const [modalcrear, setmodalcrear] = useState(false);
   const [modalprovacio, setmodalprovacio] = useState(false);
   const [modalconfirmar, setmodalconfirmar] = useState(false);
+  const [modalconfirmar_relacion, setmodalconfirmar_relacion] = useState(false);
   const [modalrelacion, setmodalrelacion] = useState(false);
   const [cargando, setcargando] = useState(false);
   useEffect(() => {
@@ -73,7 +74,7 @@ export const Materias = () => {
 
 
 
-  }, [modalcrear,modalconfirmar,modalrelacion])
+  }, [modalcrear,modalconfirmar,modalrelacion,modalconfirmar_relacion])
   const getprofesores = async () => {
     setcargando(true);
     await axios
@@ -213,6 +214,19 @@ export const Materias = () => {
         console.log(err);
       });
   }
+  const eliminar_materia_relacion = async () => {
+    await axios
+      .put(`http://localhost:3000/api/materia_estudiantes/delete/${formrelacion.id}`)
+      .then((res) => {
+        if (res.status == 200) {
+          setmodalconfirmar_relacion(false);
+          message.success("Relacion eliminada con exito");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   
 const editar_materia= (materia) => {
   setform(materia)
@@ -222,9 +236,13 @@ const editar_materia_relacion= (materia) => {
   setformrelacion(materia)
   setmodalrelacion(true)
 }
-const eliminar_confirmacion = (profesor) => {
+const eliminar_confirmacion = (materia) => {
   setmodalconfirmar(true)
-  setform(profesor)
+  setform(materia)
+}
+const eliminar_confirmacion_relacion = (materia) => {
+  setmodalconfirmar_relacion(true)
+  setformrelacion(materia)
 }
   return (
     <div>
@@ -319,7 +337,7 @@ const eliminar_confirmacion = (profesor) => {
                     </IconButton>
                     </TableCell>
                     <TableCell align="right">
-                    <IconButton variant='text' onClick={()=>{eliminar_confirmacion(materia_relacion)}} color="primary" aria-label="upload picture" component="span">
+                    <IconButton variant='text' onClick={()=>{eliminar_confirmacion_relacion(materia_relacion)}} color="primary" aria-label="upload picture" component="span">
                     <DeleteOutlined />
                     </IconButton>
                     </TableCell>
@@ -372,6 +390,30 @@ const eliminar_confirmacion = (profesor) => {
             Cerrar
           </Button>
           <Button onClick={()=>eliminar_materia()} autoFocus>
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={modalconfirmar_relacion}
+        aria-labelledby="responsive-dialog-title"
+        maxWidth="sm"
+        fullWidth={true}
+        onClose={() => setmodalconfirmar_relacion(false)}
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {`Desea eliminar a ${formrelacion.id_estudiante_aaa ? formrelacion.id_estudiante_aaa.nombre:''} de la materia ${formrelacion.id_estudiante_aaa ? formrelacion.id_materia_aaa.nombre:''}`}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Si elimina esta materia desaparecera de la lista y no la podra recuperar
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={()=>setmodalconfirmar_relacion(false)}>
+            Cerrar
+          </Button>
+          <Button onClick={()=>eliminar_materia_relacion()} autoFocus>
             Aceptar
           </Button>
         </DialogActions>
