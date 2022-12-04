@@ -56,7 +56,7 @@ export const Profesores = () => {
   const getprofesores = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/profesores", {
+      .get("http://44.233.90.150:3005/api/profesores", {
         responseType: "json",
       })
       .then(function (res) {
@@ -100,7 +100,7 @@ export const Profesores = () => {
   const getparametrotipo_profesor = async () => {
     setcargando(true);
     await axios
-      .get(`http://localhost:3000/api/valorparametro/${TIPO_PROFESOR}`, {
+      .get(`http://44.233.90.150:3005/api/valorparametro/${TIPO_PROFESOR}`, {
         responseType: "json",
       })
       .then(function (res) {
@@ -117,7 +117,7 @@ export const Profesores = () => {
   const getparametroTipo_sexo = async () => {
     setcargando(true);
     await axios
-      .get(`http://localhost:3000/api/valorparametro/${TIPO_SEXO}`, {
+      .get(`http://44.233.90.150:3005/api/valorparametro/${TIPO_SEXO}`, {
         responseType: "json",
       })
       .then(function (res) {
@@ -143,7 +143,7 @@ export const Profesores = () => {
       await getAPI(helpgemale);
       console.log(form)
       await axios
-        .post("http://localhost:3000/api/profesores", form)
+        .post("http://44.233.90.150:3005/api/profesores", form)
         .then((res) => {
           if (res.status == 200) {
             setmodalcrear(false);
@@ -155,7 +155,7 @@ export const Profesores = () => {
         });
     } else {
       console.log('entre')
-      await axios.put(`http://localhost:3000/api/profesores/${form.id}`, form).then((res) => {
+      await axios.put(`http://44.233.90.150:3005/api/profesores/${form.id}`, form).then((res) => {
         if (res.status == 200) {
           setmodalcrear(false);
           message.success("Profesor editado con exito");
@@ -182,7 +182,7 @@ export const Profesores = () => {
     });
   }
   const eliminar_profesor = async () => {
-    await axios.put(`http://localhost:3000/api/profesores/delete/${form.id}`).then((res)=>{
+    await axios.put(`http://44.233.90.150:3005/api/profesores/delete/${form.id}`).then((res)=>{
       if(res.status == 200){
         setmodalconfirmar(false)
         message.success('Profesor eliminado')

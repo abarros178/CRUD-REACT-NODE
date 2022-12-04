@@ -47,7 +47,7 @@ export const Materias = () => {
   const getestudiante = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/estudiantes", {
+      .get("http://44.233.90.150:3005/api/estudiantes", {
         responseType: "json",
       })
       .then(function (res) {
@@ -78,7 +78,7 @@ export const Materias = () => {
   const getprofesores = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/profesores", {
+      .get("http://44.233.90.150:3005/api/profesores", {
         responseType: "json",
       })
       .then(function (res) {
@@ -97,7 +97,7 @@ export const Materias = () => {
   const getmaterias = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/materia", {
+      .get("http://44.233.90.150:3005/api/materia", {
         responseType: "json",
       })
       .then(function (res) {
@@ -116,7 +116,7 @@ export const Materias = () => {
   const getmaterias_relacion = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/materia_estudiantes", {
+      .get("http://44.233.90.150:3005/api/materia_estudiantes", {
         responseType: "json",
       })
       .then(function (res) {
@@ -135,7 +135,7 @@ export const Materias = () => {
   const onsubmit = async () => {
     if(!form.estado){
     await axios
-      .post("http://localhost:3000/api/materia", form)
+      .post("http://44.233.90.150:3005/api/materia", form)
       .then((res) => {
         if (res.status == 200) {
           setmodalcrear(false);
@@ -147,7 +147,7 @@ export const Materias = () => {
       });
     }else {
       await axios
-      .put(`http://localhost:3000/api/materia/${form.id}`, form)
+      .put(`http://44.233.90.150:3005/api/materia/${form.id}`, form)
       .then((res) => {
         if (res.status == 200) {
           setmodalcrear(false);
@@ -162,7 +162,7 @@ export const Materias = () => {
   const onsubmit_relacion = async () => {
     if(!formrelacion.estado){
     await axios
-      .post("http://localhost:3000/api/materia_estudiantes", formrelacion)
+      .post("http://44.233.90.150:3005/api/materia_estudiantes", formrelacion)
       .then((res) => {
         if (res.status == 200) {
           setmodalrelacion(false);
@@ -174,7 +174,7 @@ export const Materias = () => {
       });
     }else {
       await axios
-      .put(`http://localhost:3000/api/materia_estudiantes/${formrelacion.id}`, formrelacion)
+      .put(`http://44.233.90.150:3005/api/materia_estudiantes/${formrelacion.id}`, formrelacion)
       .then((res) => {
         if (res.status == 200) {
           setmodalrelacion(false);
@@ -203,7 +203,7 @@ export const Materias = () => {
   }
   const eliminar_materia = async () => {
     await axios
-      .put(`http://localhost:3000/api/materia/delete/${form.id}`)
+      .put(`http://44.233.90.150:3005/api/materia/delete/${form.id}`)
       .then((res) => {
         if (res.status == 200) {
           setmodalconfirmar(false);
@@ -216,7 +216,7 @@ export const Materias = () => {
   }
   const eliminar_materia_relacion = async () => {
     await axios
-      .put(`http://localhost:3000/api/materia_estudiantes/delete/${formrelacion.id}`)
+      .put(`http://44.233.90.150:3005/api/materia_estudiantes/delete/${formrelacion.id}`)
       .then((res) => {
         if (res.status == 200) {
           setmodalconfirmar_relacion(false);

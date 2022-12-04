@@ -57,7 +57,7 @@ export const Estudiantes = () => {
   const getestudiante = async () => {
     setcargando(true);
     await axios
-      .get("http://localhost:3000/api/estudiantes", {
+      .get("http://44.233.90.150:3005/api/estudiantes", {
         responseType: "json",
       })
       .then(function (res) {
@@ -74,7 +74,7 @@ export const Estudiantes = () => {
   const getparametroTipo_sexo = async () => {
     setcargando(true);
     await axios
-      .get(`http://localhost:3000/api/valorparametro/${TIPO_SEXO}`, {
+      .get(`http://44.233.90.150:3005/api/valorparametro/${TIPO_SEXO}`, {
         responseType: "json",
       })
       .then(function (res) {
@@ -91,7 +91,7 @@ export const Estudiantes = () => {
   const getparametro_tipoidentificacion = async () => {
     setcargando(true);
     await axios
-      .get(`http://localhost:3000/api/valorparametro/${TIPO_IDENTIFICACION}`, {
+      .get(`http://44.233.90.150:3005/api/valorparametro/${TIPO_IDENTIFICACION}`, {
         responseType: "json",
       })
       .then(function (res) {
@@ -132,7 +132,7 @@ export const Estudiantes = () => {
       await getAPI(helpgemale);
       console.log(form)
       await axios
-        .post("http://localhost:3000/api/estudiantes", form)
+        .post("http://44.233.90.150:3005/api/estudiantes", form)
         .then((res) => {
           if (res.status == 200) {
             setmodalcrear(false);
@@ -144,7 +144,7 @@ export const Estudiantes = () => {
         });
     } else {
       console.log('entre')
-      await axios.put(`http://localhost:3000/api/estudiantes/${form.id}`, form).then((res) => {
+      await axios.put(`http://44.233.90.150:3005/api/estudiantes/${form.id}`, form).then((res) => {
         if (res.status == 200) {
           setmodalcrear(false);
           message.success("Estudiante editado con exito");
@@ -164,7 +164,7 @@ export const Estudiantes = () => {
     setform(estu)
   }
   const eliminar_estudiante = async () => {
-    await axios.put(`http://localhost:3000/api/estudiantes/delete/${form.id}`).then((res)=>{
+    await axios.put(`http://44.233.90.150:3005/api/estudiantes/delete/${form.id}`).then((res)=>{
       if(res.status == 200){
         setmodalconfirmar(false)
         message.success('Estudiante eliminado')

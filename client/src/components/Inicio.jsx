@@ -24,7 +24,7 @@ export const Inicio = () => {
         <Grid container spacing={2} justifyContent="center">
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
-            <CardActionArea href='/profesores' >
+            <CardActionArea href='/#/profesores' >
               <CardMedia
                 component="img"
                 height="140"
@@ -46,7 +46,7 @@ export const Inicio = () => {
         </Grid>
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
-            <CardActionArea href='/materias' >
+            <CardActionArea href='/#/materias' >
               <CardMedia
                 component="img"
                 height="140"
@@ -69,7 +69,7 @@ export const Inicio = () => {
       
         <Grid item xs={4}>
           <Card sx={{ maxWidth: 380 }}>
-            <CardActionArea href='/estudiantes' >
+            <CardActionArea href='/#/estudiantes' >
               <CardMedia
                 component="img"
                 height="140"
